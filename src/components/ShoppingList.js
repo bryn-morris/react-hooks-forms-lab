@@ -6,6 +6,7 @@ import Item from "./Item";
 function ShoppingList({ items }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filterString, setFilterString] = useState("");
+  const [newListArray, setNewListArray] = useState(items);
 
   function handleCategoryChange(category) {
     setSelectedCategory(category);
@@ -15,17 +16,22 @@ function ShoppingList({ items }) {
     setFilterString(searchString);
   }
 
-  // PseudoCode
-  // Store each typed letter as a string in state,
-  // declare variable and set equal to filter
-  // use the .filter method and pass it a function that returns
-    // true or false
-  // set state string and comparison category to lower case
-  // use string.includes() also to compare
-  // return true if conditions are met
-  // pass through line 30
+  function handleAddNewItem (newItem) {
+    setNewListArray([
+      ...newListArray, 
+      newItem
+    ])
+  }
 
-  const filteredList = items.filter((item) => {
+  // PseudoCode
+  // Create a "handleSubmit" function that takes an argument and
+    // pass it down as props to itemForm and create inverseDataFlow
+    // have function set newState for the array that is being rendered
+  // 
+
+  //const totalArray = 
+
+  const filteredList = newListArray.filter((item) => {
     return item.name.toLowerCase().includes(`${filterString}`)
   })
 
@@ -37,7 +43,9 @@ function ShoppingList({ items }) {
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      <ItemForm
+      handleAddNewItem = {handleAddNewItem}
+      />
       <Filter 
         onCategoryChange={handleCategoryChange}
         handleUserSearch={handleUserSearch}
